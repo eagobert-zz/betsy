@@ -1,0 +1,32 @@
+{
+  "name": "betsy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eagobert/betsy.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Modular",
+    "NSS",
+    "Nashville",
+    "Software",
+    "School"
+  ],
+  "author": "Erin Agobert <eagobert@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eagobert/betsy/issues"
+  },
+  "homepage": "https://github.com/eagobert/betsy#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.2.0",
+    "grunt-eslint": "^20.1.0"
+  }
+}
