@@ -1,53 +1,53 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
+    
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
-		eslint: {
-			all: ["scripts/*.js"],
-			options: {
-				config: "conf/eslint.json",
-				rulesDir: "conf/rules",
-			},
-		},
 		watch: {
 			scripts: {
-				files: ["scripts/*.js"],
-				tasks: ["uglify"],
+				files: ["**/scripts/*.js", "!node_modules/**/*.js"],
+				tasks: ["eslint", "browserify", "uglify"],
 				options: {
 					spawn: false,
 				},
-			},
-		},
-		uglify: {
-			options: {
-				banner: "/*! <%= pkg.name %> <%= grunt.template.today(\"yyyy-mm-dd\") %> */\n",
-			},
-			build: {
-				files: [{
-					expand: true,
-					cwd: "scripts",
-					src: "*.js",
-					dest: "build",
-					ext: ".min.js",
-				}],
-			},
+			}
 		},
 		browserify: {
 			dist: {
 				files: {
-					"build/module.js": ["client/scripts/**/*.js", "client/scripts/**/*.coffee"]
-				},
+					"build/bundle.js": ["scripts/main.js"]
+				}
 			}
+		},
+		uglify: {
+			options: {
+				banner: "/*! <%= pkg.name %> <%= grunt.template.today('yyyy-mm-dd') %> */\n"
+			},
+			build: {
+				files: [{
+					expand: true,
+					cwd: "build",
+					src: "bundle.js",
+					dest: "build",
+					ext: ".min.js"
+				}]
+			}
+		},
+		eslint: {
+			src: [
+				"**/scripts/*.js",
+				"!node_modules/**/*.js"
+			]
 		}
 	});
-
+    
 	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks("grunt-browserify");
-	grunt.loadNpmTasks("eslint-grunt");
-	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
-
-
+	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks("grunt-eslint");
+	grunt.loadNpmTasks("grunt-browserify");
+    
 	// Default task(s).
-	grunt.registerTask("default", ["browserify", "eslint", "watch", "uglify"]);
+	grunt.registerTask("default", ["eslint", "browserify", "uglify", "watch"]);
+    
 };
